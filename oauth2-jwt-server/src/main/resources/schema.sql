@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS oauth_client_details (
+CREATE TABLE oauth_client_details (
   client_id VARCHAR(256) PRIMARY KEY,
   resource_ids VARCHAR(256),
   client_secret VARCHAR(256) NOT NULL,
@@ -12,43 +12,44 @@ CREATE TABLE IF NOT EXISTS oauth_client_details (
   autoapprove VARCHAR(256)
 );
 
-CREATE TABLE IF NOT EXISTS oauth_client_token (
+CREATE TABLE oauth_client_token (
   token_id VARCHAR(256),
-  token BLOB,
+  token BYTEA,
   authentication_id VARCHAR(256) PRIMARY KEY,
   user_name VARCHAR(256),
   client_id VARCHAR(256)
 );
 
-CREATE TABLE IF NOT EXISTS oauth_access_token (
+CREATE TABLE oauth_access_token (
   token_id VARCHAR(256),
-  token BLOB,
+  token BYTEA,
   authentication_id VARCHAR(256),
   user_name VARCHAR(256),
   client_id VARCHAR(256),
-  authentication BLOB,
+  authentication BYTEA,
   refresh_token VARCHAR(256)
 );
 
-CREATE TABLE IF NOT EXISTS oauth_refresh_token (
+CREATE TABLE oauth_refresh_token (
   token_id VARCHAR(256),
-  token BLOB,
-  authentication BLOB
+  token BYTEA,
+  authentication BYTEA
 );
 
-CREATE TABLE IF NOT EXISTS oauth_code (
-  code VARCHAR(256), authentication BLOB
+CREATE TABLE oauth_code (
+  code VARCHAR(256),
+  authentication BYTEA
 );
 
-CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
   username VARCHAR(256) NOT NULL,
   password VARCHAR(256) NOT NULL,
-  enabled TINYINT(1),
-  UNIQUE KEY unique_username(username)
+  enabled SMALLINT,
+  UNIQUE (username)
 );
 
-CREATE TABLE IF NOT EXISTS authorities (
+CREATE TABLE authorities (
   username VARCHAR(256) NOT NULL,
   authority VARCHAR(256) NOT NULL,
   PRIMARY KEY(username, authority)
